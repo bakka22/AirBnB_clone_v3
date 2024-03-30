@@ -94,6 +94,22 @@ class TestFileStorage(unittest.TestCase):
                 self.assertEqual(test_dict, storage._FileStorage__objects)
         FileStorage._FileStorage__objects = save
 
+@unittest.skipIf(models.storage_t == 'db', "not testing db storage")
+def test_get_method(self):
+    """ test the engine get() method """
+    engine = FileStorage()
+    engine.reload()
+    new = list(engine.all(State).values())[0]
+    got = engine.get(State, new.id)
+    self.assertTrue(new == got, "file_storage get method failed")
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count_method(self):
+        engine = FileStorage()
+        engine.reload()
+        all_ = len(engine.all())
+        count = engine.count()
+        self.assertTrue(all_ == count, "file_storage count method failed")
+        
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
