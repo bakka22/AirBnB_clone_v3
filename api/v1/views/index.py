@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" return the status of the api """
+""" api blueprint """
 
 from api.v1.views import app_views
 from flask import jsonify
@@ -15,13 +15,15 @@ classes = {"states": State, "cities": City, "amenities": Amenity,
            "reviews": Review, "places": Place, "users": User}
 
 
-@app_views.route('/status/')
+@app_views.route('/status', strict_slashes=False)
 def index():
+    """ return status of the api """
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats/')
+@app_views.route('/stats', strict_slashes=False)
 def count():
+    """ return the number of each module """
     dic = {}
     for key, cls in classes.items():
         dic[key] = storage.count(cls)
