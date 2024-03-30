@@ -15,13 +15,13 @@ classes = {"states": State, "cities": City, "amenities": Amenity,
            "reviews": Review, "places": Place, "users": User}
 
 
-@app_views.route('/status', strict_slashes=False)
+@app_views.route('/status', strict_slashes=False, methods=['GET'])
 def index():
     """ return status of the api """
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats', strict_slashes=False)
+@app_views.route('/stats', strict_slashes=False, methods=['GET'])
 def count():
     """ return the number of each module """
     dic = {}
