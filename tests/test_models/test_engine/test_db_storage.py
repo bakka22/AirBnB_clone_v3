@@ -58,6 +58,22 @@ test_db_storage.py'])
                          "DBStorage class needs a docstring")
         self.assertTrue(len(DBStorage.__doc__) >= 1,
                         "DBStorage class needs a docstring")
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get_method(self):
+        """ test the engine get() method """
+        engine = DBStorage()
+        engine.reload()
+        new = list(engine.all(State).values())[0]
+        got = engine.get(State, new.id)
+        self.assertTrue(new == got, "db_storage get method failed")
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_count_method(self):
+        engine = DBStorage()
+        engine.reload()
+        all_ = len(engine.all())
+        count = engine.count()
+        self.assertTrue(all_ == count, "db_storage count method failed")
 
     def test_dbs_func_docstrings(self):
         """Test for the presence of docstrings in DBStorage methods"""
