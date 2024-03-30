@@ -12,10 +12,12 @@ port = int(getenv('HBNB_API_PORT', '5000'))
 
 app.register_blueprint(app_views)
 
+
 @app.teardown_appcontext
 def reset(exeption):
     """ reload objects from storage """
     storage.close()
+
 
 if __name__ == "__main__":
     app.run(host=host, port=port, threaded=True)
