@@ -73,6 +73,8 @@ class DBStorage:
 
     def get(self, cls, id):
         """  retrieve one object """
+        if cls is None or id is None:
+            return None
         self.reload()
         objs = self.all(cls)
         if cls not in classes.values():
