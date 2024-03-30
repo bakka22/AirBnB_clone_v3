@@ -77,7 +77,7 @@ class DBStorage:
             return None
         self.reload()
         objs = self.all(cls)
-        if cls not in classes.values():
+        if cls not in classes.values() and type(id) != str:
             return None
         srch = cls().__class__.__name__ + '.' + id
         return objs.get(srch)
@@ -85,16 +85,14 @@ class DBStorage:
     def count(self, cls=None):
         """  count the number of objects in storage """
         self.reload()
-        objs = self.all()
-        count = 0
-        if cls:
-            for key in objs.keys():
-                key = key.split(".")[0]
-                if cls == eval(key):
-                    count += 1
+        if cls and cls in classes.values():
+            objs = self.all(cls)
+            return len(objs)
+        elif cls is None:
+            objs = self.all()
+            return len(objs)
         else:
-            count = len(objs)
-        return count
+            return None
 
     def close(self):
         """call remove() method on the private session attribute"""
