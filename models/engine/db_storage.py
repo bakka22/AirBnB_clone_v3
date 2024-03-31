@@ -79,7 +79,7 @@ class DBStorage:
         objs = self.all(cls)
         if cls not in classes.values() and type(id) != str:
             return None
-        srch = cls().__class__.__name__ + '.' + id
+        srch = cls().__class__.__name__ + "." + id
         return objs.get(srch)
 
     def count(self, cls=None):
