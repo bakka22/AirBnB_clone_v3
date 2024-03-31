@@ -10,6 +10,7 @@ from models.review import Review
 from models.place import Place
 from models.user import User
 from models import storage
+import json
 
 classes = {"states": State, "cities": City, "amenities": Amenity,
            "reviews": Review, "places": Place, "users": User}
@@ -27,4 +28,4 @@ def count():
     dic = {}
     for key, cls in classes.items():
         dic[key] = storage.count(cls)
-    return jsonify(dic)
+    return json.dumps(dic, indent=3)
