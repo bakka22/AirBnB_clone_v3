@@ -17,7 +17,8 @@ def get_all_places(city_id):
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
-    all_places = city.places
+    all_places = storage.all(Place)
+    all_places = [place for place in all_places if place.city_id == city_id]
     all_places = [place.to_dict() for place in all_places]
     return json.dumps(all_places, indent=3)
 
