@@ -17,8 +17,7 @@ def get_all_places(city_id):
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
-    all_places = storage.all(Place)
-    all_places = [place for place in all_places if place.city_id == city_id]
+    all_places = city.places
     all_places = [place.to_dict() for place in all_places]
     return json.dumps(all_places, indent=3)
 
@@ -59,20 +58,20 @@ def add_place(city_id):
         abort(404)
     try:
         new = request.get_json()
-        u_id = new.get("user_id")
-        if u_id is None:
-            return "Missing user_id", 400
-        usr = storage.get(User, u_id)
-        if not usr:
-            abort(404)
-        if new.get("name") is None:
-            return "Missing name", 400
-        new['city_id'] = city_id
-        new_place = Place(**new)
-        new_place.save()
-        return json.dumps(new_place.to_dict(), indent=3), 201
     except Exception:
         return "Not a JSON", 400
+    u_id = new.get("user_id")
+    if u_id is None:
+        return "Missing user_id", 400
+    usr = storage.get(User, u_id)
+    if not usr:
+        abort(404)
+    if new.get("name") is None:
+        return "Missing name", 400
+    new['city_id'] = city_id
+    new_place = Place(**new)
+    new_place.save()
+    return json.dumps(new_place.to_dict(), indent=3), 201
 
 
 @app_views.route('/places/<place_id>', methods=['PUT'], strict_slashes=False)
