@@ -9,7 +9,8 @@ from models.city import City
 import json
 
 
-@app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<state_id>/cities', methods=['GET'],
+                 strict_slashes=False)
 def get_all_cities(state_id):
     """ Retrievs a list of all cities """
     state = storage.get(State, state_id)
@@ -47,7 +48,8 @@ def delete_city(city_id):
         abort(404)
 
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
+@app_views.route('/states/<state_id>/cities', methods=['POST'],
+                 strict_slashes=False)
 def add_city(state_id):
     """ adds a new city """
     state = storage.get(State, state_id)
