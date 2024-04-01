@@ -78,7 +78,10 @@ def update_city(city_id):
         for key, value in new_attr.items():
             if key not in ["id", "created_at", "updated_at"]:
                 city.__dict__[key] = value
-        city.save()
-        return json.dumps(city.to_dict(), indent=3), 200
+        new = city.to_dict()
+        storage.delete(city)
+        new = City(**new)
+        new.save()
+        return json.dumps(new.to_dict(), indent=3), 200
     except Exception:
         return f"Not a JSON", 400
