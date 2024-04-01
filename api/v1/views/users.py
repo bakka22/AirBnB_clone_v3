@@ -60,7 +60,7 @@ def add_user():
         new_obj.save()
         return json.dumps(new_obj.to_dict(), indent=3), 201
     except Exception as e:
-        return f"Not a JSON {e}", 400
+        return "Not a JSON {e}", 400
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'],
@@ -83,4 +83,4 @@ def update_user(user_id):
         new.save()
         return json.dumps(new.to_dict(), indent=3), 200
     except Exception:
-        return f"Not a JSON", 400
+        return "Not a JSON", 400

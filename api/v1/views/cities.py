@@ -64,7 +64,7 @@ def add_city(state_id):
         new_city.save()
         return json.dumps(new_city.to_dict(), indent=3), 201
     except Exception as e:
-        return f"Not a JSON {e}", 400
+        return "Not a JSON {e}", 400
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
@@ -86,4 +86,4 @@ def update_city(city_id):
         new.save()
         return json.dumps(new.to_dict(), indent=3), 200
     except Exception:
-        return f"Not a JSON", 400
+        return "Not a JSON", 400

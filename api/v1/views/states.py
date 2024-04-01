@@ -55,7 +55,7 @@ def add_state():
         new_obj.save()
         return json.dumps(new_obj.to_dict(), indent=3), 201
     except Exception:
-        return f"Not a JSON", 400
+        return "Not a JSON", 400
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
@@ -77,4 +77,4 @@ def update_state(state_id):
         new.save()
         return json.dumps(new.to_dict(), indent=3), 200
     except Exception:
-        return f"Not a JSON", 400
+        return "Not a JSON", 400

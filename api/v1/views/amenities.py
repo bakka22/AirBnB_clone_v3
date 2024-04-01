@@ -56,7 +56,7 @@ def add_amenity():
         new_obj.save()
         return json.dumps(new_obj.to_dict(), indent=3), 201
     except Exception:
-        return f"Not a JSON", 400
+        return "Not a JSON", 400
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'],
@@ -79,4 +79,4 @@ def update_amenity(amenity_id):
         new.save()
         return json.dumps(new.to_dict(), indent=3), 200
     except Exception:
-        return f"Not a JSON", 400
+        return "Not a JSON", 400
