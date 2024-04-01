@@ -26,6 +26,7 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """getter for list of city instances related to the state"""
+            storage.reload()
             city_list = []
             all_cities = models.storage.all(City)
             for city in all_cities.values():

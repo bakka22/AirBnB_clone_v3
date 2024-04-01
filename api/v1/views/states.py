@@ -71,7 +71,10 @@ def update_state(state_id):
         for key, value in new_attr.items():
             if key not in ["id", "created_at", "updated_at"]:
                 state.__dict__[key] = value
-        state.save()
-        return json.dumps(state.to_dict(), indent=3), 200
+        dic = state.to_dict()
+        storage.delete(state)
+        new = State(**dic)
+        new.save()
+        return json.dumps(new.to_dict(), indent=3), 200
     except Exception:
         return f"Not a JSON", 400
