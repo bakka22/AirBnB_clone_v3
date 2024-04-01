@@ -64,8 +64,19 @@ def add_review(place_id):
         new_review = Review(**new)
         new_review.save()
         return json.dumps(new_review.to_dict(), indent=3), 201
-    except Exception as e:
-        return "Not a JSON {e}", 400
+    except Exception:
+        return "Not a JSON", 400
+    u_id = new.get("user_id")
+    if not u_id:
+        return "Missing user_id", 400
+    if not storage.get(User, u_id):
+        abort(404)
+    if new.get("text") is None:
+        return "Missing text", 400
+    new['place_id'] = place_id
+    new_review = Review(**new)
+    new_review.save()
+    return json.dumps(new_review.to_dict(), indent=3), 201
 
 
 @app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
