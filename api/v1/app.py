@@ -5,7 +5,6 @@ from api.v1.views import app_views
 from flask import Flask, make_response, jsonify
 from models import storage
 from os import getenv
-import json
 
 app = Flask(__name__)
 host = getenv('HBNB_API_HOST', '0.0.0.0')
@@ -24,7 +23,7 @@ def reset(exeption):
 @app.errorhandler(404)
 def not_found(error):
     ''' handles 404 error and gives json formatted response '''
-    response = make_response(json.dumps({'error': 'Not found'}, indent=3), 404)
+    response = make_response(jsonify({'error': 'Not found'}), 404)
     response.headers['Content-Type'] = 'application/json'
     return response
 
