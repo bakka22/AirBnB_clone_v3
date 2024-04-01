@@ -17,7 +17,8 @@ def get_all_amenities():
     return json.dumps(list_of_amenities, indent=3)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_amenities(amenity_id):
     """ Retrievs a Amenity object """
     if type(amenity_id) != str:
@@ -58,7 +59,8 @@ def add_amenity():
         return f"Not a JSON", 400
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_amenity(amenity_id):
     """ updates a amenity """
     if type(amenity_id) != str:
