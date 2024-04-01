@@ -28,4 +28,4 @@ def count():
     dic = {}
     for key, cls in classes.items():
         dic[key] = storage.count(cls)
-    return json.dumps(dic, indent=3)
+    return jsonify(dic)
