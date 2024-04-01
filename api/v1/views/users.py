@@ -50,8 +50,6 @@ def add_user():
     """ adds a new user """
     try:
         new_st = request.get_json()
-        if new_st.get("name") is None:
-            return "Missing name", 400
         if new_st.get("email") is None:
             return "Missing email", 400
         if new_st.get("password") is None:
